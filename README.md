@@ -1,35 +1,17 @@
-# my-react-timer
+# my-react-timer (Next.js)
 
-A small React + Vite timer with start, pause, and reset controls.
+Next.js app-router 版的入口首頁與計時器，含 avatar 選單與簡單的功能卡片。Home 路徑 `/`，計時器 `/timer`。
 
 ## Recommended IDE Setup
 
 [VS Code](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Scripts
 
 ```sh
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+npm run dev      # 開發伺服器
+npm run build    # 產出
+npm start        # 執行產出後
+npm run lint     # ESLint (next/core-web-vitals)
 ```

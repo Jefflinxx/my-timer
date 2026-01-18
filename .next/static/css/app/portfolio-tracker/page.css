@@ -1,0 +1,381 @@
+/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./app/portfolio-tracker/page.module.css ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************/
+/* CSS Module for Portfolio Tracker Page */
+
+.page_root__g0pGP {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  font-family: sans-serif;
+  color: #1e293b;
+}
+
+.page_container__0sZw3 {
+  max-width: 80rem; /* 7xl */
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page_header__8NPwD {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  border: 1px solid #f3f4f6;
+}
+
+.page_title__1as0J {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  background-clip: text;
+  -webkit-background-clip: text; /* For Safari */
+  color: transparent;
+  background-image: linear-gradient(to right, #2563eb, #4f46e5);
+}
+
+.page_subtitle__w8ZcT {
+  color: #6b7281;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-top: 0.25rem;
+}
+
+.page_headerRight__oDHS8 {
+  text-align: right;
+}
+
+.page_totalLabel__OegHm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #9ca3af;
+}
+
+.page_totalValue__VksdN {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: #059669;
+}
+
+.page_date__qLWuq {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #6b7281;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.page_mainGrid__6XiZp {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-gap: 1.5rem;
+  gap: 1.5rem;
+}
+
+.page_leftColumn__zdkYF, .page_rightColumn__ZCwWg {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page_card__Xb_PD {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  border: 1px solid #f3f4f6;
+}
+
+.page_formTitle__dLLkv {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.page_formContent__0yO_h {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.page_label__ZBtlB {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #6b7281;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.page_input__CTxwr, .page_select__rWUoN {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db; /* default gray */
+  border-radius: 0.5rem;
+  background-color: #F9FAFB;
+  outline: none;
+}
+
+.page_input__CTxwr:focus, .page_select__rWUoN:focus {
+  border-color: #93c5fd; /* blue-300 */
+  box-shadow: 0 0 0 2px #dbeafe; /* blue-100 */
+}
+
+.page_inputWrapper__h1S9s {
+  position: relative;
+}
+
+.page_inputIcon__GeJct {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+}
+
+.page_inputWithIcon__sf0Q9 {
+  padding-left: 2.5rem;
+}
+
+.page_button__lvJ_p {
+  width: 100%;
+  background-color: #2563eb;
+  color: #ffffff;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.page_button__lvJ_p:hover {
+  background-color: #1d4ed8;
+}
+
+.page_assetListCard__NXd9g { 
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.page_assetListTitle__Oi2An {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #374151;
+}
+
+.page_assetList__M3ie3 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.page_assetItem__cgfNj {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.page_assetTicker__2GbuL {
+  font-weight: 700;
+  color: #1f2937; /* gray-800 */
+}
+
+.page_assetDate__B30RM {
+  font-size: 0.75rem;
+  color: #6b7281; /* gray-500 */
+}
+
+.page_assetAmount__nIe5m {
+  text-align: right;
+}
+
+.page_assetValue__ou9VC {
+  font-weight: 500; /* medium */
+}
+
+.page_removeButton__FDefT {
+  color: #f87171; /* red-400 */
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  opacity: 0;
+  transition: opacity 150ms;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; /* gap-1 */
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.page_assetItem__cgfNj:hover .page_removeButton__FDefT {
+  opacity: 1;
+}
+
+.page_removeButton__FDefT:hover {
+  color: #dc2626; /* red-600 */
+}
+
+.page_chartTitle__a6RDF {
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.page_chartIcon__y4c1r {
+  color: #3b82f6;
+}
+
+.page_chartWrapper__xvjSA {
+  height: 300px;
+  width: 100%;
+}
+
+.page_timeMachineCard__ITDoV {
+  background-color: #312e81;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  color: #ffffff;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.page_timeMachineHeader__p0Omi {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.page_timeMachineTitle__0l2Nq {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.page_timeMachineIcon__9dPfm {
+  color: #a5b4fc;
+}
+
+.page_timeMachineDate__it1bo {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: #c7d2fe;
+}
+
+.page_slider__hKG7J {
+  width: 100%;
+  height: 0.5rem;
+  background-color: #4338ca;
+  border-radius: 0.5rem;
+  -moz-appearance: none;
+       appearance: none;
+  -webkit-appearance: none; /* For Safari */
+  cursor: pointer;
+  accent-color: #a5b4fc;
+  transition: all 150ms;
+}
+
+.page_slider__hKG7J:hover {
+  accent-color: #ffffff;
+}
+
+.page_sliderLabels__FvugY {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #818cf8;
+  margin-top: 0.5rem;
+}
+
+.page_pieChartsGrid__0UgTi {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-gap: 1.5rem;
+  gap: 1.5rem;
+}
+
+.page_pieChartCard__rS0U3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* For the date badge */
+}
+
+.page_pieChartTitle__cuAw5 {
+  color: #6b7281; /* gray-500 */
+  font-weight: 500; /* medium */
+  margin-bottom: 0.5rem;
+}
+
+.page_pieChartWrapper__o8w_X {
+  height: 200px;
+  width: 100%;
+}
+
+.page_pieChartSummary__bxZ_5 {
+  text-align: center;
+  margin-top: -10px;
+}
+
+.page_pieChartLabel__GX_XQ {
+  font-size: 0.75rem;
+  color: #9ca3af; /* gray-400 */
+}
+
+.page_pieChartValue___tRXK {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: #374151; /* gray-700 */
+}
+
+.page_pieChartValueEmerald__Hmo9L {
+  color: #059669; /* emerald-600 */
+}
+
+.page_dateBadge__pCtcp {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.75rem;
+  background-color: #e0e7ff;
+  color: #4338ca;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+  .page_pieChartsGrid__0UgTi {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) { /* lg breakpoint */
+  .page_mainGrid__6XiZp {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .page_leftColumn__zdkYF {
+    grid-column: span 1 / span 1;
+  }
+  .page_rightColumn__ZCwWg {
+    grid-column: span 2 / span 2;
+  }
+}

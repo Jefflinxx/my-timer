@@ -1,0 +1,630 @@
+/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./app/components/timer/Timer.module.css ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************/
+.Timer_timerShell__6vumi {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 16px 64px;
+  background: #1c1917;
+  color: #e7e5e4;
+  overflow: hidden;
+}
+
+.Timer_timerBackgroundGlow__8MVS9 {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.Timer_timerGlowOne__7L1qN,
+.Timer_timerGlowTwo__v87z6 {
+  position: absolute;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 9999px;
+  filter: blur(80px);
+  mix-blend-mode: screen;
+}
+
+.Timer_timerGlowOne__7L1qN {
+  top: -10%;
+  left: -10%;
+  background: #064e3b;
+}
+
+.Timer_timerGlowTwo__v87z6 {
+  bottom: -10%;
+  right: -10%;
+  background: #292524;
+}
+
+.Timer_timerMainStack__KJWSr {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.Timer_timerTitleBlock___C7vt {
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.Timer_timerTitleBlock___C7vt h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #34d399;
+}
+
+.Timer_timerTitleBlock___C7vt p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: #a8a29e;
+}
+
+.Timer_timerClockShell__QtfZu {
+  position: relative;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 9999px;
+  transition: box-shadow 0.5s ease;
+}
+
+.Timer_timerClockShell__QtfZu svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.Timer_timerPointer__8efNH {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.Timer_timerPointer__8efNH:active,
+.Timer_timerPointerDraggable__BJ4e3:active {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+.Timer_timerPointerDot__TUwfy {
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.4));
+}
+
+.Timer_timerProgress__dhFRG {
+  opacity: 0.9;
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.3));
+}
+
+.Timer_timerCenterArea__gyiY3 {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  text-align: center;
+}
+
+.Timer_timerCenterButton__F4YuC {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 210px;
+  height: 210px;
+  border-radius: 9999px;
+}
+
+.Timer_timerTimeDisplay__fj6r_ {
+  font-size: 60px;
+  font-weight: 300;
+  color: #ffffff;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.Timer_timerStatusText__T6vrw {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #10b981;
+  opacity: 0.85;
+}
+
+.Timer_timerControlCard__D2_Jq {
+  width: 100%;
+  background: rgba(41, 37, 36, 0.6);
+  border: 1px solid rgba(120, 113, 108, 0.45);
+  border-radius: 20px;
+  padding: 24px;
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
+}
+
+.Timer_timerSettingsCard__2lqLl {
+  margin-top: 20px;
+  gap: 12px;
+}
+
+.Timer_timerControlRow__g5Tk7 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #a8a29e;
+}
+
+.Timer_timerControlValue__YpRRK {
+  color: #34d399;
+  font-weight: 700;
+}
+
+.Timer_timerSlider__zGOx8 {
+  width: 100%;
+}
+
+.Timer_timerControlScale__EMqvd {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #78716c;
+  padding: 0 6px;
+}
+
+.Timer_timerControlsStack___8Et_ {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.Timer_timerSettingsTriggerArea__6YI6M {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  margin-top: 0;
+}
+
+.Timer_timerMoreButton__zRz0N {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(24, 24, 27, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.08s ease;
+}
+
+.Timer_timerMoreButton__zRz0N span {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #d1fae5;
+  box-shadow: 0 0 6px rgba(52, 211, 153, 0.4);
+}
+
+.Timer_timerMoreButton__zRz0N:hover {
+  border-color: rgba(52, 211, 153, 0.45);
+  background: rgba(24, 24, 27, 0.8);
+  transform: translateY(-1px);
+}
+
+.Timer_timerSettingsModal__uIb5f {
+  background: rgba(41, 37, 36, 0.95);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 22px;
+  padding: 32px 28px 28px;
+  width: min(420px, calc(100vw - 32px));
+  color: #e7e5e4;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.Timer_timerSettingsModalTitle__29rb9 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #34d399;
+  margin: 0 0 12px;
+}
+
+.Timer_timerSettingsDivider__syTko {
+  height: 1px;
+  background: rgba(120, 113, 108, 0.5);
+  margin: 14px 0;
+}
+
+.Timer_timerSettingsRow__54M5o {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: #e7e5e4;
+}
+
+.Timer_timerSettingsToggle__rE6tF {
+  -moz-appearance: none;
+       appearance: none;
+  -webkit-appearance: none;
+  width: 46px;
+  height: 26px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+  padding: 0;
+}
+
+.Timer_timerSettingsToggle__rE6tF::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: transform 0.18s ease;
+}
+
+.Timer_timerSettingsToggle__rE6tF:checked {
+  background: rgba(20, 162, 107, 0.55);
+  border-color: rgba(20, 162, 107, 0.8);
+}
+
+.Timer_timerSettingsToggle__rE6tF:checked::before {
+  transform: translateX(20px);
+}
+
+.Timer_timerModeGroup__mCUF3 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Timer_timerModeText__7Qsl0 {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.Timer_timerModeTitle__UT2vK {
+  font-weight: 800;
+  color: #34d399;
+}
+
+.Timer_timerModeDesc__0z3GM {
+  font-size: 13px;
+  color: #d6d3d1;
+}
+
+.Timer_timerModeSegment__Mbw7U {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  gap: 10px;
+}
+
+.Timer_timerModePill__6FNa4 {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e7e5e4;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.Timer_timerModePill__6FNa4.Timer_active__XCTft {
+  background: rgba(20, 162, 107, 0.25);
+  border-color: rgba(20, 162, 107, 0.8);
+  color: #ffffff;
+}
+
+.Timer_timerSoundSegment__XqAb3 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  gap: 10px;
+}
+
+.Timer_timerSoundOptions___qBta {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.Timer_timerSoundPill__M3pMH {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e7e5e4;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.Timer_timerSoundPill__M3pMH.Timer_active__XCTft {
+  background: rgba(20, 162, 107, 0.2);
+  border-color: rgba(20, 162, 107, 0.8);
+  color: #ffffff;
+}
+
+.Timer_timerSettingsCloseBtn__XgVqw {
+  margin-top: 24px;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 9999px;
+  border: none;
+  background: #14a26b;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.Timer_timerSettingsCloseBtn__XgVqw:hover {
+  filter: brightness(1.05);
+}
+
+.Timer_timerAlertCard__rZ_18 {
+  background: rgba(41, 37, 36, 0.95);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 22px;
+  padding: 32px 28px 28px;
+  width: min(420px, calc(100vw - 32px));
+  text-align: center;
+  color: #e7e5e4;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.Timer_timerAlertIcon__nLh7h {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  border-radius: 9999px;
+  background: rgba(6, 78, 59, 0.9);
+  display: grid;
+  place-items: center;
+}
+
+.Timer_timerAlertIcon__nLh7h svg {
+  width: 32px;
+  height: 32px;
+  stroke: #6ee7b7;
+  stroke-width: 2.2;
+  fill: none;
+}
+
+.Timer_timerAlertTitle__6iL5H {
+  margin: 0 0 12px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #f5f5f4;
+}
+
+.Timer_timerAlertBody__sHlI2 {
+  margin: 0 0 22px;
+  color: #d6d3d1;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.Timer_timerAlertButton__fh1SG {
+  width: 100%;
+  padding: 14px 16px;
+  background: linear-gradient(120deg, #0ea667, #16c58b);
+  border: 1px solid rgba(16, 185, 129, 0.65);
+  border-radius: 9999px;
+  color: #f1fff7;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: none;
+  transition: box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.Timer_timerAlertButton__fh1SG:hover {
+  box-shadow: 0 14px 36px rgba(16, 185, 129, 0.4);
+  filter: brightness(1.03);
+}
+
+.Timer_timerAlertButton__fh1SG:active {
+  filter: brightness(1.01);
+}
+
+.Timer_dialogOpen__c2mf8 {
+  animation: Timer_fadeIn__aMkA5 0.3s ease-out;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+}
+
+.Timer_dialogBackdrop__qPehx {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.82);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  z-index: 40;
+}
+
+@keyframes Timer_breathe__kqwEg {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 20px 2px rgba(16, 185, 129, 0.3);
+  }
+}
+
+.Timer_breathingBorder___v_Gb {
+  animation: Timer_breathe__kqwEg 3s infinite ease-in-out;
+}
+
+.Timer_tickMark__9sydj {
+  stroke: #44403c;
+  stroke-width: 2;
+}
+
+.Timer_slider__Qj265 {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.Timer_slider__Qj265:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.Timer_slider__Qj265::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background: #10b981;
+  cursor: pointer;
+  margin-top: -10px;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  -webkit-transition: transform 0.1s;
+  transition: transform 0.1s;
+}
+
+.Timer_slider__Qj265:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+}
+
+.Timer_slider__Qj265::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.Timer_slider__Qj265::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: #44403c;
+  border-radius: 2px;
+}
+
+@media (min-width: 768px) {
+  .Timer_timerClockShell__QtfZu {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  .Timer_timerTitleBlock___C7vt h1 {
+    font-size: 36px;
+  }
+}
+
+/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./app/timer/page.module.css ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************/
+.page_featureWrapper__YW7rd {
+  position: relative;
+  z-index: 1;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding-top: 24px;
+}
+
+.page_featureHeader__Sjpp3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.page_featureHeaderLeft__SUEpp {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.page_muted__Zbl0Y {
+  color: #cbd5e1;
+  margin: 4px 0 0;
+}
+
+.page_featureMeta__jBsqM h2 {
+  margin: 0;
+}
+
+.page_featureMeta__jBsqM p {
+  margin: 4px 0 0;
+}
+
+.page_featureBodyShell__N8wzP {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.55);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+}
+
+.page_featureBodyFlat__LTApo {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+@media (max-width: 720px) {
+  .page_featureHeader__Sjpp3 {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page_featureHeaderLeft__SUEpp {
+    flex-wrap: wrap;
+  }
+}
+

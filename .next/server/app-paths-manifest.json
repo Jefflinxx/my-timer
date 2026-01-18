@@ -1,0 +1,6 @@
+{
+  "/page": "app/page.js",
+  "/portfolio-tracker/page": "app/portfolio-tracker/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/timer/page": "app/timer/page.js"
+}
