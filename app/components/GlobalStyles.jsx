@@ -19,7 +19,6 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Nunito', sans-serif;
     background-color: #1b1917;
     color: #e7e5e4;
-    touch-action: none;
   }
 
   ::selection {

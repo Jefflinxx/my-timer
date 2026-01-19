@@ -400,9 +400,7 @@ export default function PortfolioTracker() {
         <Header>
           <div>
             <Title>投資組合時光機</Title>
-            <Subtitle>
-              使用 Alpha Vantage、Yahoo Finance 與 CoinGecko API 的真實數據
-            </Subtitle>
+            <Subtitle>使用 Alpha Vantage、Yahoo Finance 與 CoinGecko API 的真實數據</Subtitle>
           </div>
           <HeaderRight>
             <TotalLabel>當前選定日期總資產</TotalLabel>
@@ -453,13 +451,8 @@ export default function PortfolioTracker() {
                     </Select>
                   </div>
                   <div>
-                    <Label>
-                      {isCashType(newType) ? "幣別" : "資產代號 (Ticker)"}
-                    </Label>
-                    <Select
-                      value={newTicker}
-                      onChange={(e) => setNewTicker(e.target.value)}
-                    >
+                    <Label>{isCashType(newType) ? "幣別" : "資產代號 (Ticker)"}</Label>
+                    <Select value={newTicker} onChange={(e) => setNewTicker(e.target.value)}>
                       {exampleTickers[newType].map((t) => (
                         <option key={t} value={t}>
                           {t}
@@ -476,9 +469,7 @@ export default function PortfolioTracker() {
                     )}
                   </div>
                   <div>
-                    <Label>
-                      {isCashType(newType) ? "金額" : "股數 / 單位數"}
-                    </Label>
+                    <Label>{isCashType(newType) ? "金額" : "股數 / 單位數"}</Label>
                     <Input
                       type="number"
                       value={newAmount}
@@ -663,9 +654,7 @@ export default function PortfolioTracker() {
                   </PieChartWrapper>
                   <PieChartSummary>
                     <PieChartLabel>當下總市值</PieChartLabel>
-                    <PieChartValueEmerald>
-                      {formatTwd(currentPortfolioValue)}
-                    </PieChartValueEmerald>
+                    <PieChartValueEmerald>{formatTwd(currentPortfolioValue)}</PieChartValueEmerald>
                   </PieChartSummary>
                 </PieChartCard>
               </PieChartsGrid>
@@ -677,12 +666,16 @@ export default function PortfolioTracker() {
   );
 }
 
+// JJ
 const Root = styled.div`
   min-height: 100vh;
   background-color: #f9fafb;
   padding: 1.5rem;
   font-family: sans-serif;
   color: #1e293b;
+
+  width: 100%;
+  /* border: 2px solid yellow; */
 `;
 
 const Container = styled.div`
@@ -743,7 +736,8 @@ const DateText = styled.div`
   font-size: 0.875rem;
   line-height: 1.25rem;
   color: #6b7281;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
     monospace;
 `;
 
@@ -938,7 +932,9 @@ const TimeMachineCard = styled.div`
   padding: 1.5rem;
   border-radius: 1rem;
   color: #ffffff;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
 `;
 
 const TimeMachineHeader = styled.div`
@@ -960,7 +956,9 @@ const TimeMachineIcon = styled(PlayCircle)`
 `;
 
 const TimeMachineDate = styled.span`
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
   color: #c7d2fe;
 `;
 

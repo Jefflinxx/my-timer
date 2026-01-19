@@ -12,6 +12,7 @@ const AppFrameContext = createContext({
 
 export const useAppFrame = () => useContext(AppFrameContext);
 
+// layout 引用了這個元件來包裹整個應用程式的內容
 const AppFrame = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const avatarBtnRef = useRef(null);
@@ -147,9 +148,7 @@ const AppFrame = ({ children }) => {
           </TopNavInner>
         </TopNav>
 
-        {menuOpen && (
-          <MenuBackdrop onClick={closeMenu} aria-hidden="true"></MenuBackdrop>
-        )}
+        {menuOpen && <MenuBackdrop onClick={closeMenu} aria-hidden="true"></MenuBackdrop>}
         <AppContent>{children}</AppContent>
       </AppFrameShell>
     </AppFrameContext.Provider>
@@ -158,25 +157,34 @@ const AppFrame = ({ children }) => {
 
 export default AppFrame;
 
+// 最外層
+// JJ
 const AppFrameShell = styled.div`
-  height: 100vh;
+  /* height: 100vh; */
+  height: auto;
   position: relative;
   background: #1b1917;
   box-sizing: border-box;
-  padding-top: 74px;
+  /* padding-top: 74px; */
+
+  /* border: 1px solid red; */
 
   @media (max-width: 720px) {
-    padding-top: 74px;
+    /* padding-top: 74px; */
     height: auto;
   }
 `;
 
+// 內容區域
+// JJ
 const AppContent = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: stretch;
-  padding: 0 0 80px;
+  /* padding: 0 0 80px; */
   min-height: calc(100vh - 74px);
+
+  /* border: 1px solid red; */
 `;
 
 const TopNav = styled.nav`
@@ -234,7 +242,10 @@ const BackLink = styled(Link)`
   background: rgba(38, 33, 31, 0.8);
   color: #e2e8f0;
   text-decoration: none;
-  transition: border-color 0.12s ease, color 0.12s ease, transform 0.1s ease;
+  transition:
+    border-color 0.12s ease,
+    color 0.12s ease,
+    transform 0.1s ease;
   font-size: 24px;
   line-height: 1;
 

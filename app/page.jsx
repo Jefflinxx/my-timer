@@ -138,12 +138,15 @@ const featureCardBase = css`
   overflow: hidden;
   border-color: #36312f;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
 
   &:hover {
     border-color: rgba(255, 255, 255, 0.12);
     transform: translateY(-5px) scale(1.04);
-    box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.1),
+    box-shadow:
+      0 10px 15px -3px rgba(16, 185, 129, 0.1),
       0 4px 6px -4px rgba(16, 185, 129, 0.1);
   }
 
