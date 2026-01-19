@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import styles from './Timer.module.css';
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import styled, { css, keyframes } from "styled-components";
 
 // --- 核心幾何常數 ---
 const MAX_MINUTES = 60;
@@ -33,13 +33,12 @@ const Ticks = () => {
         const y2 = CENTER + outerR * Math.sin(angle);
 
         ticks.push(
-            <line 
+            <TickMark
                 key={i}
                 x1={x1}
                 y1={y1}
                 x2={x2}
                 y2={y2}
-                className={styles.tickMark}
                 style={{ stroke: isMajor ? '#78716c' : '#44403c', strokeWidth: isMajor ? 3 : 2 }}
             />
         );
@@ -510,22 +509,19 @@ const Timer = () => {
     }
 
     return (
-        <div className={styles.timerShell}>
-            <div className={styles.timerBackgroundGlow}>
-                <div className={styles.timerGlowOne}></div>
-                <div className={styles.timerGlowTwo}></div>
-            </div>
+        <TimerShell>
+            <TimerBackgroundGlow>
+                <TimerGlowOne />
+                <TimerGlowTwo />
+            </TimerBackgroundGlow>
 
-            <main className={styles.timerMainStack}>
-                <div className={styles.timerTitleBlock}>
+            <TimerMainStack>
+                <TimerTitleBlock>
                     <h1>Eye Guardian</h1>
                     <p>拖曳指針設定時間，保護您的雙眼</p>
-                </div>
+                </TimerTitleBlock>
 
-                <div
-                    id="clock-container"
-                    className={`${styles.timerClockShell} ${isRunning ? styles.breathingBorder : ''}`}
-                >
+                <TimerClockShell id="clock-container" $breathing={isRunning}>
                     <svg
                         ref={svgRef}
                         id="timer-svg"
@@ -544,7 +540,7 @@ const Timer = () => {
                             pointerEvents="none"
                         />
 
-                        <circle
+                        <TimerProgress
                             id="progress-ring"
                             cx={CENTER}
                             cy={CENTER}
@@ -557,74 +553,65 @@ const Timer = () => {
                                 strokeDasharray: `${CIRCUMFERENCE - drawLength} ${CIRCUMFERENCE}`,
                                 strokeDashoffset: 0,
                             }}
-                                className={styles.timerProgress}
-                                pointerEvents="none"
+                            pointerEvents="none"
                         />
 
-                        <g
+                        <TimerPointer
                             ref={pointerRef}
                             id="pointer-group"
                             style={{ transform: `translate(${CENTER}px, ${CENTER}px) rotate(${degrees}deg)` }}
-                            className={
-                                isRunning
-                                    ? `${styles.timerPointer} ${styles.timerPointerDraggable}`
-                                    : styles.timerPointer
-                            }
                             onMouseDown={handleDragStart}
                             onTouchStart={handleDragStart}
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <circle
+                            <TimerPointerDot
                                 cx={RADIUS}
                                 cy={0}
                                 r="12"
                                 fill="#ecfccb"
                                 stroke="#10b981"
                                 strokeWidth="3"
-                                className={styles.timerPointerDot}
                             />
                             <circle cx={RADIUS} cy={0} r="24" fill="transparent" />
-                        </g>
+                        </TimerPointer>
                     </svg>
 
-                    <div id="center-click-area" className={styles.timerCenterArea} style={{ pointerEvents: 'none' }}>
-                        <button
+                    <TimerCenterArea id="center-click-area" style={{ pointerEvents: 'none' }}>
+                        <TimerCenterButton
                             type="button"
-                            className={styles.timerCenterButton}
                             style={{ pointerEvents: 'auto' }}
                             onClick={handleStartStop}
                         >
-                            <div id="time-display" className={styles.timerTimeDisplay}>
+                            <TimerTimeDisplay id="time-display">
                                 {formatTime(timeLeft)}
-                            </div>
-                            <div id="status-text" className={styles.timerStatusText}>
+                            </TimerTimeDisplay>
+                            <TimerStatusText id="status-text">
                                 {statusText}
-                            </div>
-                        </button>
-                    </div>
-                </div>
+                            </TimerStatusText>
+                        </TimerCenterButton>
+                    </TimerCenterArea>
+                </TimerClockShell>
 
-                <div className={styles.timerControlsStack}>
-                    <div className={styles.timerSettingsTriggerArea}>
-                        <button
-                            className={styles.timerMoreButton}
+                <TimerControlsStack>
+                    <TimerSettingsTriggerArea>
+                        <TimerMoreButton
                             aria-label="提醒設定"
                             onClick={() => setIsSettingsOpen((prev) => !prev)}
                         >
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </button>
-                    </div>
+                            <span />
+                            <span />
+                            <span />
+                        </TimerMoreButton>
+                    </TimerSettingsTriggerArea>
 
-                    <div className={styles.timerControlCard}>
-                        <div className={styles.timerControlRow}>
+                    <TimerControlCard>
+                        <TimerControlRow>
                             <span>專注時長 (計時中無法調整)</span>
-                            <span id="slider-value" className={styles.timerControlValue}>
+                            <TimerControlValue id="slider-value">
                                 {durationMinutes} 分鐘
-                            </span>
-                        </div>
-                        <input
+                            </TimerControlValue>
+                        </TimerControlRow>
+                        <TimerSlider
                             type="range"
                             id="duration-slider"
                             min="1"
@@ -633,47 +620,46 @@ const Timer = () => {
                             step="1"
                             disabled={isRunning}
                             onChange={handleSliderChange}
-                            className={`${styles.timerSlider} ${styles.slider}`}
                         />
-                        <div className={styles.timerControlScale}>
+                        <TimerControlScale>
                             <span>1 min</span>
                             <span>{MAX_MINUTES} min</span>
-                        </div>
-                    </div>
-                </div>
-            </main>
+                        </TimerControlScale>
+                    </TimerControlCard>
+                </TimerControlsStack>
+            </TimerMainStack>
 
             {isAlertOpen && (
                 <>
-                    <div className={styles.dialogBackdrop}></div>
-                    <div id="alert-dialog" className={`${styles.dialogOpen} ${styles.timerAlertCard}`}>
-                        <div className={styles.timerAlertIcon}>
+                    <DialogBackdrop></DialogBackdrop>
+                    <TimerAlertCard id="alert-dialog">
+                        <TimerAlertIcon>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                             </svg>
-                        </div>
-                        <h2 className={styles.timerAlertTitle}>時間到了！</h2>
-                        <p className={styles.timerAlertBody}>
+                        </TimerAlertIcon>
+                        <TimerAlertTitle>時間到了！</TimerAlertTitle>
+                        <TimerAlertBody>
                             請放下手邊工作，讓眼睛休息一下。<br />
                             眺望遠方至少 20 秒。
-                        </p>
-                        <button onClick={closeAlert} className={styles.timerAlertButton}>
+                        </TimerAlertBody>
+                        <TimerAlertButton onClick={closeAlert}>
                             好的，我會休息
-                        </button>
-                    </div>
+                        </TimerAlertButton>
+                    </TimerAlertCard>
                 </>
             )}
 
             {isSettingsOpen && (
                 <>
-                    <div className={styles.dialogBackdrop} onClick={() => setIsSettingsOpen(false)}></div>
-                    <div className={`${styles.timerSettingsModal} ${styles.dialogOpen}`}>
-                        <div className={styles.timerSettingsModalTitle}>設定選項</div>
-                        <div className={styles.timerSettingsDivider}></div>
-                        <label className={styles.timerSettingsRow}>
+                    <DialogBackdrop onClick={() => setIsSettingsOpen(false)}></DialogBackdrop>
+                    <TimerSettingsModal>
+                        <TimerSettingsModalTitle>設定選項</TimerSettingsModalTitle>
+                        <TimerSettingsDivider></TimerSettingsDivider>
+                        <TimerSettingsRow>
                             <span>結束時播放警報音效</span>
-                            <input
+                            <TimerSettingsToggle
                                 type="checkbox"
                                 checked={enableSound}
                                 onChange={(e) => {
@@ -681,17 +667,16 @@ const Timer = () => {
                                     setEnableSound(checked);
                                     persistSettings({ enableSound: checked });
                             }}
-                                className={styles.timerSettingsToggle}
                             />
-                        </label>
+                        </TimerSettingsRow>
                         {enableSound && (
                             <>
-                                <div className={styles.timerSoundOptions}>
-                                    <div className={styles.timerModeDesc}>點擊可立即試聽</div>
-                                    <div className={styles.timerSoundSegment}>
-                                        <button
+                                <TimerSoundOptions>
+                                    <TimerModeDesc>點擊可立即試聽</TimerModeDesc>
+                                    <TimerSoundSegment>
+                                        <TimerSoundPill
                                             type="button"
-                                            className={`${styles.timerSoundPill} ${soundMode === 'default' ? styles.active : ''}`}
+                                            $active={soundMode === 'default'}
                                             onClick={() => {
                                                 setSoundMode('default');
                                                 persistSettings({ soundMode: 'default' });
@@ -699,10 +684,10 @@ const Timer = () => {
                                             }}
                                         >
                                             預設音效
-                                        </button>
-                                        <button
+                                        </TimerSoundPill>
+                                        <TimerSoundPill
                                             type="button"
-                                            className={`${styles.timerSoundPill} ${soundMode === 'loud' ? styles.active : ''}`}
+                                            $active={soundMode === 'loud'}
                                             onClick={() => {
                                                 setSoundMode('loud');
                                                 persistSettings({ soundMode: 'loud' });
@@ -710,42 +695,598 @@ const Timer = () => {
                                             }}
                                         >
                                             顯著音效
-                                        </button>
-                                    </div>
-                                </div>
+                                        </TimerSoundPill>
+                                    </TimerSoundSegment>
+                                </TimerSoundOptions>
                             </>
                         )}
-                        <div className={styles.timerSettingsDivider}></div>
-                        <div className={styles.timerModeGroup}>
-                            <div className={styles.timerModeText}>
-                                <span className={styles.timerModeTitle}>通知方式</span>
-                                <span className={styles.timerModeDesc}>選擇提醒方式，系統通知需允許瀏覽器通知。</span>
-                            </div>
-                            <div className={styles.timerModeSegment}>
-                                <button
+                        <TimerSettingsDivider></TimerSettingsDivider>
+                        <TimerModeGroup>
+                            <TimerModeText>
+                                <TimerModeTitle>通知方式</TimerModeTitle>
+                                <TimerModeDesc>選擇提醒方式，系統通知需允許瀏覽器通知。</TimerModeDesc>
+                            </TimerModeText>
+                            <TimerModeSegment>
+                                <TimerModePill
                                     type="button"
-                                    className={`${styles.timerModePill} ${enableNotification ? styles.active : ''}`}
+                                    $active={enableNotification}
                                     onClick={() => setNotificationMode(true)}
                                 >
                                     系統通知
-                                </button>
-                                <button
+                                </TimerModePill>
+                                <TimerModePill
                                     type="button"
-                                    className={`${styles.timerModePill} ${enableSystemAlert ? styles.active : ''}`}
+                                    $active={enableSystemAlert}
                                     onClick={() => setNotificationMode(false)}
                                 >
                                     系統級提示
-                                </button>
-                            </div>
-                        </div>
-                        <button className={styles.timerSettingsCloseBtn} onClick={() => setIsSettingsOpen(false)}>
+                                </TimerModePill>
+                            </TimerModeSegment>
+                        </TimerModeGroup>
+                        <TimerSettingsCloseButton onClick={() => setIsSettingsOpen(false)}>
                             關閉
-                        </button>
-                    </div>
+                        </TimerSettingsCloseButton>
+                    </TimerSettingsModal>
                 </>
             )}
-        </div>
+        </TimerShell>
     );
 };
 
 export default Timer;
+
+const breathe = keyframes`
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+  50% {
+    box-shadow: 0 0 20px 2px rgba(16, 185, 129, 0.3);
+  }
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+`;
+
+const TimerShell = styled.div`
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 16px 64px;
+  background: #1c1917;
+  color: #e7e5e4;
+  overflow: hidden;
+`;
+
+const TimerBackgroundGlow = styled.div`
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.2;
+  pointer-events: none;
+`;
+
+const TimerGlowBase = styled.div`
+  position: absolute;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 9999px;
+  filter: blur(80px);
+  mix-blend-mode: screen;
+`;
+
+const TimerGlowOne = styled(TimerGlowBase)`
+  top: -10%;
+  left: -10%;
+  background: #064e3b;
+`;
+
+const TimerGlowTwo = styled(TimerGlowBase)`
+  bottom: -10%;
+  right: -10%;
+  background: #292524;
+`;
+
+const TimerMainStack = styled.main`
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  position: relative;
+  z-index: 1;
+`;
+
+const TimerTitleBlock = styled.div`
+  text-align: center;
+  user-select: none;
+
+  h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #34d399;
+  }
+
+  p {
+    margin: 6px 0 0;
+    font-size: 14px;
+    color: #a8a29e;
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 36px;
+    }
+  }
+`;
+
+const TimerClockShell = styled.div`
+  position: relative;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 9999px;
+  transition: box-shadow 0.5s ease;
+  ${(props) =>
+    props.$breathing &&
+    css`
+      animation: ${breathe} 3s infinite ease-in-out;
+    `}
+
+  svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  @media (min-width: 768px) {
+    width: 20rem;
+    height: 20rem;
+  }
+`;
+
+const TimerPointer = styled.g`
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+`;
+
+const TimerPointerDot = styled.circle`
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.4));
+`;
+
+const TimerProgress = styled.circle`
+  opacity: 0.9;
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.3));
+`;
+
+const TimerCenterArea = styled.div`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  text-align: center;
+`;
+
+const TimerCenterButton = styled.button`
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 210px;
+  height: 210px;
+  border-radius: 9999px;
+`;
+
+const TimerTimeDisplay = styled.div`
+  font-size: 60px;
+  font-weight: 300;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+`;
+
+const TimerStatusText = styled.div`
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #10b981;
+  opacity: 0.85;
+`;
+
+const TimerControlsStack = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+`;
+
+const TimerSettingsTriggerArea = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+`;
+
+const TimerMoreButton = styled.button`
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(24, 24, 27, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.08s ease;
+
+  span {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: #d1fae5;
+    box-shadow: 0 0 6px rgba(52, 211, 153, 0.4);
+  }
+
+  &:hover {
+    border-color: rgba(52, 211, 153, 0.45);
+    background: rgba(24, 24, 27, 0.8);
+    transform: translateY(-1px);
+  }
+`;
+
+const TimerControlCard = styled.div`
+  width: 100%;
+  background: rgba(41, 37, 36, 0.6);
+  border: 1px solid rgba(120, 113, 108, 0.45);
+  border-radius: 20px;
+  padding: 24px;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
+`;
+
+const TimerControlRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #a8a29e;
+`;
+
+const TimerControlValue = styled.span`
+  color: #34d399;
+  font-weight: 700;
+`;
+
+const TimerSlider = styled.input`
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: #10b981;
+    cursor: pointer;
+    margin-top: -10px;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+    transition: transform 0.1s;
+  }
+
+  &:disabled::-webkit-slider-thumb {
+    cursor: not-allowed;
+  }
+
+  &::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+  }
+
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: #44403c;
+    border-radius: 2px;
+  }
+`;
+
+const TimerControlScale = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #78716c;
+  padding: 0 6px;
+`;
+
+const DialogBackdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(8px);
+  z-index: 40;
+`;
+
+const TimerAlertCard = styled.div`
+  animation: ${fadeIn} 0.3s ease-out;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  background: rgba(41, 37, 36, 0.95);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 22px;
+  padding: 32px 28px 28px;
+  width: min(420px, calc(100vw - 32px));
+  text-align: center;
+  color: #e7e5e4;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.2);
+`;
+
+const TimerAlertIcon = styled.div`
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  border-radius: 9999px;
+  background: rgba(6, 78, 59, 0.9);
+  display: grid;
+  place-items: center;
+
+  svg {
+    width: 32px;
+    height: 32px;
+    stroke: #6ee7b7;
+    stroke-width: 2.2;
+    fill: none;
+  }
+`;
+
+const TimerAlertTitle = styled.h2`
+  margin: 0 0 12px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #f5f5f4;
+`;
+
+const TimerAlertBody = styled.p`
+  margin: 0 0 22px;
+  color: #d6d3d1;
+  line-height: 1.6;
+  font-size: 15px;
+`;
+
+const TimerAlertButton = styled.button`
+  width: 100%;
+  padding: 14px 16px;
+  background: linear-gradient(120deg, #0ea667, #16c58b);
+  border: 1px solid rgba(16, 185, 129, 0.65);
+  border-radius: 9999px;
+  color: #f1fff7;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: none;
+  transition: box-shadow 0.12s ease, filter 0.12s ease;
+
+  &:hover {
+    box-shadow: 0 14px 36px rgba(16, 185, 129, 0.4);
+    filter: brightness(1.03);
+  }
+
+  &:active {
+    filter: brightness(1.01);
+  }
+`;
+
+const TimerSettingsModal = styled.div`
+  animation: ${fadeIn} 0.3s ease-out;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  background: rgba(41, 37, 36, 0.95);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 22px;
+  padding: 32px 28px 28px;
+  width: min(420px, calc(100vw - 32px));
+  color: #e7e5e4;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.2);
+`;
+
+const TimerSettingsModalTitle = styled.div`
+  font-size: 20px;
+  font-weight: 800;
+  color: #34d399;
+  margin: 0 0 12px;
+`;
+
+const TimerSettingsDivider = styled.div`
+  height: 1px;
+  background: rgba(120, 113, 108, 0.5);
+  margin: 14px 0;
+`;
+
+const TimerSettingsRow = styled.label`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: #e7e5e4;
+`;
+
+const TimerSettingsToggle = styled.input`
+  appearance: none;
+  -webkit-appearance: none;
+  width: 46px;
+  height: 26px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+  padding: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: transform 0.18s ease;
+  }
+
+  &:checked {
+    background: rgba(20, 162, 107, 0.55);
+    border-color: rgba(20, 162, 107, 0.8);
+  }
+
+  &:checked::before {
+    transform: translateX(20px);
+  }
+`;
+
+const TimerModeGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const TimerModeText = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+const TimerModeTitle = styled.span`
+  font-weight: 800;
+  color: #34d399;
+`;
+
+const TimerModeDesc = styled.span`
+  font-size: 13px;
+  color: #d6d3d1;
+`;
+
+const TimerModeSegment = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+`;
+
+const TimerModePill = styled.button`
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e7e5e4;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+  ${(props) =>
+    props.$active &&
+    css`
+      background: rgba(20, 162, 107, 0.25);
+      border-color: rgba(20, 162, 107, 0.8);
+      color: #ffffff;
+    `}
+`;
+
+const TimerSoundOptions = styled.div`
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const TimerSoundSegment = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+`;
+
+const TimerSoundPill = styled.button`
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e7e5e4;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+  ${(props) =>
+    props.$active &&
+    css`
+      background: rgba(20, 162, 107, 0.2);
+      border-color: rgba(20, 162, 107, 0.8);
+      color: #ffffff;
+    `}
+`;
+
+const TimerSettingsCloseButton = styled.button`
+  margin-top: 24px;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 9999px;
+  border: none;
+  background: #14a26b;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: none;
+
+  &:hover {
+    filter: brightness(1.05);
+  }
+`;
+
+const TickMark = styled.line`
+  stroke: #44403c;
+  stroke-width: 2;
+`;

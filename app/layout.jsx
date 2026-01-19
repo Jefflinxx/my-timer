@@ -1,5 +1,6 @@
-import "./globals.css";
 import AppFrame from "./components/AppFrame";
+import StyledComponentsRegistry from "./components/StyledComponentsRegistry";
+import GlobalStyles from "./components/GlobalStyles";
 
 export const metadata = {
   title: "My Timer Hub",
@@ -10,7 +11,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="zh-Hant">
       <body>
-        <AppFrame>{children}</AppFrame>
+        <StyledComponentsRegistry>
+          <GlobalStyles />
+          <AppFrame>{children}</AppFrame>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

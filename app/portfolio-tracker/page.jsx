@@ -1,7 +1,7 @@
 "use client";
 
-import styles from "./page.module.css";
 import React, { useState, useMemo, useEffect } from "react";
+import styled, { css } from "styled-components";
 import {
   LineChart,
   Line,
@@ -394,54 +394,51 @@ export default function PortfolioTracker() {
 
   const currentDate = allDates[timeIndex];
 
-  console.log("Rendered with processedHistory:", processedHistory);
-
   return (
-    <div className={styles.root}>
-      <div className={styles.container}>
-        <header className={styles.header}>
+    <Root>
+      <Container>
+        <Header>
           <div>
-            <h1 className={styles.title}>投資組合時光機</h1>
-            <p className={styles.subtitle}>
+            <Title>投資組合時光機</Title>
+            <Subtitle>
               使用 Alpha Vantage、Yahoo Finance 與 CoinGecko API 的真實數據
-            </p>
+            </Subtitle>
           </div>
-          <div className={styles.headerRight}>
-            <div className={styles.totalLabel}>當前選定日期總資產</div>
-            <div className={styles.totalValue}>{formatTwd(currentPortfolioValue)}</div>
-            <div className={styles.date}>{currentDate}</div>
-          </div>
-        </header>
+          <HeaderRight>
+            <TotalLabel>當前選定日期總資產</TotalLabel>
+            <TotalValue>{formatTwd(currentPortfolioValue)}</TotalValue>
+            <DateText>{currentDate}</DateText>
+          </HeaderRight>
+        </Header>
 
         {error && (
-          <div className={styles.card} style={{ backgroundColor: "#fee2e2", color: "#b91c1c" }}>
-            <h2 className={styles.formTitle}>錯誤</h2>
+          <Card style={{ backgroundColor: "#fee2e2", color: "#b91c1c" }}>
+            <FormTitle>錯誤</FormTitle>
             <p>無法載入歷史數據，請檢查您的 API 金鑰或網路連線。</p>
             <pre style={{ whiteSpace: "pre-wrap", fontFamily: "monospace", marginTop: "1rem" }}>
               {error}
             </pre>
-          </div>
+          </Card>
         )}
 
         {isLoading && (
-          <div className={styles.card}>
+          <Card>
             <p>正在載入歷史數據，請稍候...</p>
-          </div>
+          </Card>
         )}
 
         {!isLoading && !error && (
-          <div className={styles.mainGrid}>
-            <div className={styles.leftColumn}>
+          <MainGrid>
+            <LeftColumn>
               {/* Add Asset Form */}
-              <div className={styles.card}>
-                <h2 className={styles.formTitle}>
+              <Card>
+                <FormTitle>
                   <Plus size={18} /> 新增資產紀錄
-                </h2>
-                <div className={styles.formContent}>
+                </FormTitle>
+                <FormContent>
                   <div>
-                    <label className={styles.label}>資產類型</label>
-                    <select
-                      className={styles.select}
+                    <Label>資產類型</Label>
+                    <Select
                       value={newType}
                       onChange={(e) => {
                         setNewType(e.target.value);
@@ -453,14 +450,13 @@ export default function PortfolioTracker() {
                       <option value="crypto">加密貨幣 (Crypto)</option>
                       <option value="cash_usd">現金 (USD)</option>
                       <option value="cash_twd">現金 (TWD)</option>
-                    </select>
+                    </Select>
                   </div>
                   <div>
-                    <label className={styles.label}>
+                    <Label>
                       {isCashType(newType) ? "幣別" : "資產代號 (Ticker)"}
-                    </label>
-                    <select
-                      className={styles.select}
+                    </Label>
+                    <Select
                       value={newTicker}
                       onChange={(e) => setNewTicker(e.target.value)}
                     >
@@ -469,90 +465,84 @@ export default function PortfolioTracker() {
                           {t}
                         </option>
                       ))}
-                    </select>
+                    </Select>
                     {!isCashType(newType) && (
-                      <input
+                      <Input
                         type="text"
                         placeholder="Or enter custom ticker"
-                        className={styles.input}
                         style={{ marginTop: "0.5rem" }}
                         onBlur={(e) => e.target.value && setNewTicker(e.target.value.toUpperCase())}
                       />
                     )}
                   </div>
                   <div>
-                    <label className={styles.label}>
+                    <Label>
                       {isCashType(newType) ? "金額" : "股數 / 單位數"}
-                    </label>
-                    <input
+                    </Label>
+                    <Input
                       type="number"
                       value={newAmount}
                       onChange={(e) => setNewAmount(e.target.value)}
-                      className={styles.input}
                       placeholder="e.g. 500"
                     />
                   </div>
-                  <button onClick={addAsset} className={styles.button}>
+                  <PrimaryButton onClick={addAsset}>
                     <Plus size={16} /> 加入組合
-                  </button>
-                </div>
-              </div>
+                  </PrimaryButton>
+                </FormContent>
+              </Card>
               {/* Asset List */}
-              <div className={styles.assetListCard}>
-                <h2 className={styles.assetListTitle}>資產列表</h2>
-                <div className={styles.assetList}>
+              <AssetListCard>
+                <AssetListTitle>資產列表</AssetListTitle>
+                <AssetList>
                   {assets.map((asset) => (
-                    <div key={asset.id} className={styles.assetItem}>
+                    <AssetItem key={asset.id}>
                       <div>
-                        <div className={styles.assetTicker}>
+                        <AssetTicker>
                           {isCashType(asset.type)
                             ? assetTypeLabels[asset.type]
                             : `${getAssetDisplayName(asset)} (${assetTypeLabels[asset.type] || asset.type})`}
-                        </div>
-                        <div className={styles.assetDate}>{asset.date || "尚未設定"}</div>
+                        </AssetTicker>
+                        <AssetDate>{asset.date || "尚未設定"}</AssetDate>
                       </div>
-                      <div className={styles.assetAmount}>
-                        <div className={styles.assetValue}>
+                      <AssetAmount>
+                        <AssetValue>
                           {isCashType(asset.type)
                             ? formatTwd(getCostInTwd(asset))
                             : `${asset.amount.toLocaleString()} 單位`}
-                        </div>
-                        <button
-                          onClick={() => removeAsset(asset.id)}
-                          className={styles.removeButton}
-                        >
+                        </AssetValue>
+                        <RemoveButton onClick={() => removeAsset(asset.id)}>
                           <Trash2 size={12} /> 移除
-                        </button>
-                      </div>
-                    </div>
+                        </RemoveButton>
+                      </AssetAmount>
+                    </AssetItem>
                   ))}
-                </div>
+                </AssetList>
                 <div style={{ marginTop: "1rem" }}>
-                  <label className={styles.label}>投入日期</label>
-                  <input
+                  <Label>投入日期</Label>
+                  <Input
                     type="date"
                     value={chartDate}
                     onChange={(e) => setChartDate(e.target.value)}
-                    className={styles.input}
                   />
                 </div>
-                <button onClick={generateCharts} className={styles.button} style={{ marginTop: "0.75rem" }}>
+                <PrimaryButton onClick={generateCharts} style={{ marginTop: "0.75rem" }}>
                   生成圖表
-                </button>
+                </PrimaryButton>
                 {needsRefresh && (
                   <div style={{ marginTop: "0.5rem", color: "#6b7280", fontSize: "0.9rem" }}>
                     資產已更新，請點「生成圖表」重新計算。
                   </div>
                 )}
-              </div>
-            </div>
-            <div className={styles.rightColumn}>
+              </AssetListCard>
+            </LeftColumn>
+            <RightColumn>
               {/* Line Chart */}
-              <div className={styles.card}>
-                <h3 className={styles.chartTitle}>
-                  <Clock size={18} className={styles.chartIcon} /> 資產比例歷史變化 (%)
-                </h3>
-                <div className={styles.chartWrapper}>
+              <Card>
+                <ChartTitle>
+                  <ChartIcon size={18} /> 資產比例歷史變化 (%)
+                </ChartTitle>
+                <ChartWrapper>
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={processedHistory}>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
@@ -588,37 +578,36 @@ export default function PortfolioTracker() {
                       ))}
                     </LineChart>
                   </ResponsiveContainer>
-                </div>
-              </div>
+                </ChartWrapper>
+              </Card>
               {/* Time Machine */}
               {allDates.length > 0 && (
-                <div className={styles.timeMachineCard}>
-                  <div className={styles.timeMachineHeader}>
-                    <div className={styles.timeMachineTitle}>
-                      <PlayCircle className={styles.timeMachineIcon} />
+                <TimeMachineCard>
+                  <TimeMachineHeader>
+                    <TimeMachineTitle>
+                      <TimeMachineIcon />
                       <span>時光機控制器</span>
-                    </div>
-                    <span className={styles.timeMachineDate}>{currentDate}</span>
-                  </div>
-                  <input
+                    </TimeMachineTitle>
+                    <TimeMachineDate>{currentDate}</TimeMachineDate>
+                  </TimeMachineHeader>
+                  <Slider
                     type="range"
                     min="0"
                     max={allDates.length - 1}
                     value={timeIndex}
                     onChange={(e) => setTimeIndex(Number(e.target.value))}
-                    className={styles.slider}
                   />
-                  <div className={styles.sliderLabels}>
+                  <SliderLabels>
                     <span>{allDates[0]}</span>
                     <span>{allDates[allDates.length - 1]}</span>
-                  </div>
-                </div>
+                  </SliderLabels>
+                </TimeMachineCard>
               )}
               {/* Pie Charts */}
-              <div className={styles.pieChartsGrid}>
-                <div className={styles.pieChartCard}>
-                  <h4 className={styles.pieChartTitle}>初始投入分佈 (Cost)</h4>
-                  <div className={styles.pieChartWrapper}>
+              <PieChartsGrid>
+                <PieChartCard>
+                  <PieChartTitle>初始投入分佈 (Cost)</PieChartTitle>
+                  <PieChartWrapper>
                     <ResponsiveContainer>
                       <PieChart>
                         <Pie
@@ -640,16 +629,16 @@ export default function PortfolioTracker() {
                         />
                       </PieChart>
                     </ResponsiveContainer>
-                  </div>
-                  <div className={styles.pieChartSummary}>
-                    <div className={styles.pieChartLabel}>總投入成本</div>
-                    <div className={styles.pieChartValue}>{formatTwd(totalCost)}</div>
-                  </div>
-                </div>
-                <div className={styles.pieChartCard}>
-                  <div className={styles.dateBadge}>{currentDate}</div>
-                  <h4 className={styles.pieChartTitle}>時間點市值分佈 (Market)</h4>
-                  <div className={styles.pieChartWrapper}>
+                  </PieChartWrapper>
+                  <PieChartSummary>
+                    <PieChartLabel>總投入成本</PieChartLabel>
+                    <PieChartValue>{formatTwd(totalCost)}</PieChartValue>
+                  </PieChartSummary>
+                </PieChartCard>
+                <PieChartCard>
+                  <DateBadge>{currentDate}</DateBadge>
+                  <PieChartTitle>時間點市值分佈 (Market)</PieChartTitle>
+                  <PieChartWrapper>
                     <ResponsiveContainer>
                       <PieChart>
                         <Pie
@@ -671,19 +660,390 @@ export default function PortfolioTracker() {
                         />
                       </PieChart>
                     </ResponsiveContainer>
-                  </div>
-                  <div className={styles.pieChartSummary}>
-                    <div className={styles.pieChartLabel}>當下總市值</div>
-                    <div className={styles.pieChartValueEmerald}>
+                  </PieChartWrapper>
+                  <PieChartSummary>
+                    <PieChartLabel>當下總市值</PieChartLabel>
+                    <PieChartValueEmerald>
                       {formatTwd(currentPortfolioValue)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                    </PieChartValueEmerald>
+                  </PieChartSummary>
+                </PieChartCard>
+              </PieChartsGrid>
+            </RightColumn>
+          </MainGrid>
         )}
-      </div>
-    </div>
+      </Container>
+    </Root>
   );
 }
+
+const Root = styled.div`
+  min-height: 100vh;
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  font-family: sans-serif;
+  color: #1e293b;
+`;
+
+const Container = styled.div`
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  border: 1px solid #f3f4f6;
+`;
+
+const Title = styled.h1`
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #2563eb, #4f46e5);
+`;
+
+const Subtitle = styled.p`
+  color: #6b7281;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-top: 0.25rem;
+`;
+
+const HeaderRight = styled.div`
+  text-align: right;
+`;
+
+const TotalLabel = styled.div`
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #9ca3af;
+`;
+
+const TotalValue = styled.div`
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: #059669;
+`;
+
+const DateText = styled.div`
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #6b7281;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+`;
+
+const MainGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+`;
+
+const LeftColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @media (min-width: 1024px) {
+    grid-column: span 1 / span 1;
+  }
+`;
+
+const RightColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @media (min-width: 1024px) {
+    grid-column: span 2 / span 2;
+  }
+`;
+
+const Card = styled.div`
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  border: 1px solid #f3f4f6;
+`;
+
+const FormTitle = styled.h2`
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const FormContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+`;
+
+const Label = styled.label`
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #6b7281;
+  margin-bottom: 0.25rem;
+  display: block;
+`;
+
+const inputBase = css`
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background-color: #f9fafb;
+  outline: none;
+
+  &:focus {
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 2px #dbeafe;
+  }
+`;
+
+const Input = styled.input`
+  ${inputBase}
+`;
+
+const Select = styled.select`
+  ${inputBase}
+`;
+
+const PrimaryButton = styled.button`
+  width: 100%;
+  background-color: #2563eb;
+  color: #ffffff;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &:hover {
+    background-color: #1d4ed8;
+  }
+`;
+
+const AssetListCard = styled(Card)`
+  max-height: 400px;
+  overflow-y: auto;
+`;
+
+const AssetListTitle = styled.h2`
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #374151;
+`;
+
+const AssetList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+`;
+
+const AssetItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+
+  &:hover button {
+    opacity: 1;
+  }
+`;
+
+const AssetTicker = styled.div`
+  font-weight: 700;
+  color: #1f2937;
+`;
+
+const AssetDate = styled.div`
+  font-size: 0.75rem;
+  color: #6b7281;
+`;
+
+const AssetAmount = styled.div`
+  text-align: right;
+`;
+
+const AssetValue = styled.div`
+  font-weight: 500;
+`;
+
+const RemoveButton = styled.button`
+  color: #f87171;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  opacity: 0;
+  transition: opacity 150ms;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: #dc2626;
+  }
+`;
+
+const ChartTitle = styled.h3`
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const ChartIcon = styled(Clock)`
+  color: #3b82f6;
+`;
+
+const ChartWrapper = styled.div`
+  height: 300px;
+  width: 100%;
+`;
+
+const TimeMachineCard = styled.div`
+  background-color: #312e81;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  color: #ffffff;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+`;
+
+const TimeMachineHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+`;
+
+const TimeMachineTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+`;
+
+const TimeMachineIcon = styled(PlayCircle)`
+  color: #a5b4fc;
+`;
+
+const TimeMachineDate = styled.span`
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: #c7d2fe;
+`;
+
+const Slider = styled.input`
+  width: 100%;
+  height: 0.5rem;
+  background-color: #4338ca;
+  border-radius: 0.5rem;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  accent-color: #a5b4fc;
+  transition: all 150ms;
+
+  &:hover {
+    accent-color: #ffffff;
+  }
+`;
+
+const SliderLabels = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #818cf8;
+  margin-top: 0.5rem;
+`;
+
+const PieChartsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+`;
+
+const PieChartCard = styled(Card)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+`;
+
+const PieChartTitle = styled.h4`
+  color: #6b7281;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+`;
+
+const PieChartWrapper = styled.div`
+  height: 200px;
+  width: 100%;
+`;
+
+const PieChartSummary = styled.div`
+  text-align: center;
+  margin-top: -10px;
+`;
+
+const PieChartLabel = styled.div`
+  font-size: 0.75rem;
+  color: #9ca3af;
+`;
+
+const PieChartValue = styled.div`
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: #374151;
+`;
+
+const PieChartValueEmerald = styled(PieChartValue)`
+  color: #059669;
+`;
+
+const DateBadge = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.75rem;
+  background-color: #e0e7ff;
+  color: #4338ca;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+`;
