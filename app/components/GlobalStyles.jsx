@@ -12,7 +12,16 @@ const GlobalStyles = createGlobalStyle`
 
   html, body {
     background-color: #1b1917;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /* overflow-x: hidden; */
+  }
+
+  body > div {
     /* min-height: 100%; */
+    /* width: 100%; */
   }
 
   * {

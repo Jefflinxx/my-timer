@@ -160,31 +160,26 @@ export default AppFrame;
 // 最外層
 // JJ
 const AppFrameShell = styled.div`
-  /* height: 100vh; */
-  height: auto;
+  /* min-height: 100vh; */
+  width: 100%;
   position: relative;
   background: #1b1917;
   box-sizing: border-box;
   /* padding-top: 74px; */
-
-  /* border: 1px solid red; */
-
-  @media (max-width: 720px) {
-    /* padding-top: 74px; */
-    height: auto;
-  }
 `;
 
 // 內容區域
 // JJ
 const AppContent = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
   /* padding: 0 0 80px; */
   min-height: calc(100vh - 74px);
-
-  /* border: 1px solid red; */
+  width: 100%;
+  /* min-width: 0; */
+  /* overflow-x: hidden; */
 `;
 
 const TopNav = styled.nav`
