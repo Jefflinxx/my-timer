@@ -55,6 +55,7 @@ export default function PortfolioTracker() {
   const [hasHydrated, setHasHydrated] = useState(false);
   const [importText, setImportText] = useState("");
   const [importError, setImportError] = useState("");
+  const [chartCache, setChartCache] = useState(null);
 
   // --- State: 新增資產表單 ---
   const [newTicker, setNewTicker] = useState("TSLA");
@@ -85,7 +86,36 @@ export default function PortfolioTracker() {
   }, [assets, hasHydrated]);
 
   useEffect(() => {
+    const savedChart = window.localStorage.getItem("portfolio_chart_cache");
+    if (savedChart) {
+      try {
+        setChartCache(JSON.parse(savedChart));
+      } catch {
+        // Ignore invalid localStorage data.
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!hasHydrated || !chartCache) return;
+    const assetKey = JSON.stringify(assets);
+    if (chartCache.assetKey !== assetKey) return;
+    setPriceHistories(chartCache.priceHistories || {});
+    setFxRates(chartCache.fxRates || {});
+    setAllDates(chartCache.allDates || []);
+    setTimeIndex(chartCache.timeIndex || 0);
+    if (chartCache.chartDate) {
+      setChartDate(chartCache.chartDate);
+    }
+    setIsLoading(false);
+  }, [hasHydrated, chartCache, assets]);
+
+  useEffect(() => {
     const fetchAllHistories = async () => {
+      if (fetchVersion === 0) {
+        setIsLoading(false);
+        return;
+      }
       if (assets.length === 0) {
         setIsLoading(false);
         setPriceHistories({});
@@ -169,6 +199,7 @@ export default function PortfolioTracker() {
         if (sortedDates.length > 0) {
           setTimeIndex(sortedDates.length - 1);
         }
+        let ratesMap = {};
         if (needsTwFx && sortedDates.length > 0) {
           const todayStr = new Date().toISOString().split("T")[0];
           let start = sortedDates[0] > todayStr ? todayStr : sortedDates[0];
@@ -184,7 +215,6 @@ export default function PortfolioTracker() {
           if (!fxResponse.ok) {
             throw new Error(fxData?.details || fxData?.error || "Failed to fetch FX rates.");
           }
-          const ratesMap = {};
           Object.entries(fxData?.rates || {}).forEach(([date, rateObj]) => {
             if (rateObj?.TWD != null) {
               ratesMap[date] = rateObj.TWD;
@@ -194,6 +224,16 @@ export default function PortfolioTracker() {
         } else {
           setFxRates({});
         }
+
+        const cachePayload = {
+          assetKey: JSON.stringify(assets),
+          priceHistories: histories,
+          fxRates: ratesMap,
+          allDates: sortedDates,
+          timeIndex: sortedDates.length > 0 ? sortedDates.length - 1 : 0,
+          chartDate,
+        };
+        window.localStorage.setItem("portfolio_chart_cache", JSON.stringify(cachePayload));
       } catch (e) {
         console.error("Data fetching error:", e);
         setError(e.message);
