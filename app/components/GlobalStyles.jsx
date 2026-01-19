@@ -10,6 +10,11 @@ const GlobalStyles = createGlobalStyle`
     background-color: #1b1917;
   }
 
+  html, body {
+    background-color: #1b1917;
+    /* min-height: 100%; */
+  }
+
   * {
     box-sizing: border-box;
   }
