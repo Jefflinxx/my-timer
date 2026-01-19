@@ -9,8 +9,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="zh-Hant">
-      <body>
+    <html lang="zh-Hant" style={{ backgroundColor: "#1b1917" }}>
+      <body style={{ margin: 0, backgroundColor: "#1b1917" }}>
         <StyledComponentsRegistry>
           <GlobalStyles />
           <AppFrame>{children}</AppFrame>
