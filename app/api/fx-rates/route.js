@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
+  if (process.env.GITHUB_PAGES === "true") {
+    return NextResponse.json({
+      error: "FX rates API is unavailable on the GitHub Pages static export.",
+    });
+  }
+
   const { searchParams } = new URL(request.url);
   const start = searchParams.get("start");
   const end = searchParams.get("end");

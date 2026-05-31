@@ -10,6 +10,7 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 const SVG_VIEWBOX_SIZE = 300; // SVG viewBox="0 0 300 300"
 const CENTER = SVG_VIEWBOX_SIZE / 2; // 150
 const STORAGE_KEY = "eye-guardian-settings";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 // --- 格式化時間 (MM:SS) ---
 const formatTime = (seconds) => {
@@ -210,7 +211,7 @@ const Timer = () => {
       try {
         new Notification("時間到了！", {
           body: "請休息眼睛，眺望遠方至少 20 秒。",
-          icon: "/favicon.ico",
+          icon: `${BASE_PATH}/favicon.ico`,
           // requireInteraction: true, // 加上這行 mac 通知會壞
         });
         console.log("[notify] notification dispatched");
@@ -511,7 +512,7 @@ const Timer = () => {
   if (isDragging && wasRunningRef.current) {
     statusText = "調整中...";
   } else if (isRunning) {
-    statusText = "工作中...";
+    statusText = "工作中";
   } else if (timeLeft <= 0) {
     statusText = "時間到";
   } else {

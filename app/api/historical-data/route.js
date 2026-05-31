@@ -145,6 +145,12 @@ async function getCryptoHistoricalData(ticker) {
 }
 
 export async function GET(request) {
+  if (process.env.GITHUB_PAGES === "true") {
+    return NextResponse.json({
+      error: "Historical data API is unavailable on the GitHub Pages static export.",
+    });
+  }
+
   const { searchParams } = new URL(request.url);
   const ticker = searchParams.get("ticker");
   const type = searchParams.get("type");
