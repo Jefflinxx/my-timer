@@ -1,5 +1,4 @@
 import "./globals.css";
-import AppFrame from "./components/AppFrame";
 import StyledComponentsRegistry from "./components/StyledComponentsRegistry";
 import GlobalStyles from "./components/GlobalStyles";
 import { Noto_Sans_TC, Nunito } from "next/font/google";
@@ -19,8 +18,8 @@ const notoSansTc = Noto_Sans_TC({
 });
 
 export const metadata = {
-  title: "My Timer Hub",
-  description: "集中入口整合計時器與工具的 Next.js 版本",
+  title: "Eye Guardian",
+  description: "20/20/20 護眼專注計時器",
 };
 
 export default function RootLayout({ children }) {
@@ -33,7 +32,7 @@ export default function RootLayout({ children }) {
       <body style={{ margin: 0, backgroundColor: "#1b1917" }}>
         <StyledComponentsRegistry>
           <GlobalStyles />
-          <AppFrame>{children}</AppFrame>
+          {children}
         </StyledComponentsRegistry>
       </body>
     </html>

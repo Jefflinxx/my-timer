@@ -512,7 +512,7 @@ const Timer = () => {
   if (isDragging && wasRunningRef.current) {
     statusText = "調整中...";
   } else if (isRunning) {
-    statusText = "工作中";
+    statusText = "工作中...";
   } else if (timeLeft <= 0) {
     statusText = "時間到";
   } else {
